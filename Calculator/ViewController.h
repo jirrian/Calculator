@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+// buttons
+#define columns 4
+#define rows 5
+
+@interface ViewController : UIViewController{
+    UIButton *buttons[columns][rows];
+}
+
+// screen displays
+@property (weak, nonatomic) IBOutlet UITextField *input;
+@property (weak, nonatomic) IBOutlet UITextField *output;
 
 
 @end
