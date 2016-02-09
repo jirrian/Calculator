@@ -49,9 +49,89 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+// actions depending on button clicked
 - (void) buttonClicked:(UIButton*)button{
-    
+    if(button.tag == 0){
+        [self.inputCalcs setString:@""];
+        self.input.text = self.inputCalcs;
+        self.output.text = @"0";
+    }
+    else if(button.tag == 1){
+        if([self.inputCalcs isEqualToString:@""]){
+            // calculate space before current number
+            [self.inputCalcs insertString:@"-" atIndex:something];
+        }
+    }
+    else if(button.tag == 2){
+        return @"+/-";
+    }
+    else if(button.tag == 3){
+        [self.inputCalcs appendString:@"/"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 4){
+        [self.inputCalcs appendString:@"7"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 5){
+        [self.inputCalcs appendString:@"8"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 6){
+        [self.inputCalcs appendString:@"9"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 7){
+        [self.inputCalcs appendString:@"*"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 8){
+        [self.inputCalcs appendString:@"4"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 9){
+        [self.inputCalcs appendString:@"5"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 10){
+        [self.inputCalcs appendString:@"6"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 11){
+        [self.inputCalcs appendString:@"-"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 12){
+        [self.inputCalcs appendString:@"1"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 13){
+        [self.inputCalcs appendString:@"2"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 14){
+        [self.inputCalcs appendString:@"3"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 15){
+        [self.inputCalcs appendString:@"+"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 16){
+        [self.inputCalcs appendString:@"0"];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 17){
+        [self.inputCalcs appendString:@"."];
+        self.input.text = self.inputCalcs;
+    }
+    else if(button.tag == 18){
+        return @"←";
+    }
+    else{
+        return @"=";
+    }
+
 }
 
 // helper function to pick button label
@@ -61,10 +141,10 @@
         return @"C";
     }
     else if(tag == 1){
-        return @"()";
+        return @"+/-";
     }
     else if(tag == 2){
-        return @"+/-";
+        return @"%";
     }
     else if(tag == 3){
         return @"÷";
