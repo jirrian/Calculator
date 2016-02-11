@@ -20,7 +20,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *input;
 @property (weak, nonatomic) IBOutlet UITextField *output;
 
+// mutable string to easily change input textfield text
 @property (strong, nonatomic) NSMutableString *inputCalcs;
+
+// keep track if equals was just pressed
+@property BOOL done;
 
 @end
 

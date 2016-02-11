@@ -16,7 +16,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.inputCalcs = [NSMutableString stringWithString: @""];
+    
+    // hide default keyboards for textviews
+    UIView* dummyView = [[UIView alloc] initWithFrame:CGRectMake(0,0,1,1)];
+    self.input.inputView = dummyView;
+    self.output.inputView = dummyView;
+    
+    self.output.delegate = self;
     
     // create buttons
     int tag = 0;    // tag #
@@ -49,25 +57,78 @@
     // Dispose of any resources that can be recreated.
 }
 
+// allow user interaction with output textfield but no editing
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    return NO;
+}
+
 // actions depending on button clicked
 - (void) buttonClicked:(UIButton*)button{
-    if(button.tag == 0){
-        [self.inputCalcs setString:@""];
-        self.input.text = self.inputCalcs;
-        self.output.text = @"0";
-    }
-    else if(button.tag == 1){
-        if([self.inputCalcs isEqualToString:@""]){
-            // calculate space before current number
-            [self.inputCalcs insertString:@"-" atIndex:something];
+    
+    // start new expression continuing result of previous if operand pressed after =
+    // clear everything if number or parenthesis pressed
+    if(button.tag == 3 || button.tag == 7 || button.tag == 11 || button.tag == 15){
+        if([self.output.text isEqualToString: @"0"] == NO){
+            [self.inputCalcs setString:self.output.text];
+            
+            self.done = NO;
         }
     }
+    else if(button.tag != 19 && button.tag != 18 && button.tag != 17){
+        if(self.done == YES){
+            [self.inputCalcs setString:@""];
+            
+            self.input.text = self.inputCalcs;
+            self.output.text = @"0";
+            
+            self.done = NO;
+        }
+    }
+    
+    if(button.tag == 0){
+        [self.inputCalcs setString:@""];
+        
+        self.input.text = self.inputCalcs;
+        self.output.text = @"0";
+        
+        self.done = NO;
+    }
+    else if(button.tag == 1){
+        [self.inputCalcs appendString:@"("];
+        self.input.text = self.inputCalcs;
+    }
     else if(button.tag == 2){
-        return @"+/-";
+        [self.inputCalcs appendString:@")"];
+        self.input.text = self.inputCalcs;
     }
     else if(button.tag == 3){
-        [self.inputCalcs appendString:@"/"];
-        self.input.text = self.inputCalcs;
+        // replace existing operand with new pressed operand
+        if ([self.inputCalcs hasSuffix:@"*"]
+            || [self.inputCalcs hasSuffix:@"+"]
+            || [self.inputCalcs hasSuffix:@"-"]){
+            
+            [self.inputCalcs deleteCharactersInRange:NSMakeRange(self.inputCalcs.length-1, 1)];
+            
+            // make number before floating point if not already
+            if([self.inputCalcs rangeOfString:@"."].location == NSNotFound){
+                [self.inputCalcs appendString:@".0"];
+            }
+            
+            [self.inputCalcs appendString:@"/"];
+            self.input.text = self.inputCalcs;
+        }
+        // append if not empty string or same operand already entered
+        else if([self.inputCalcs isEqualToString: @""] == NO
+                && [self.inputCalcs hasSuffix:@"/"] == NO){
+            
+            // make number before floating point if not already
+            if([self.inputCalcs rangeOfString:@"."].location == NSNotFound){
+                [self.inputCalcs appendString:@".0"];
+            }
+            
+            [self.inputCalcs appendString:@"/"];
+            self.input.text = self.inputCalcs;
+        }
     }
     else if(button.tag == 4){
         [self.inputCalcs appendString:@"7"];
@@ -82,8 +143,20 @@
         self.input.text = self.inputCalcs;
     }
     else if(button.tag == 7){
-        [self.inputCalcs appendString:@"*"];
-        self.input.text = self.inputCalcs;
+        // replace existing operand with new pressed operand
+        if ([self.inputCalcs hasSuffix:@"/"]
+            || [self.inputCalcs hasSuffix:@"+"]
+            || [self.inputCalcs hasSuffix:@"-"]){
+            
+            [self.inputCalcs replaceCharactersInRange:NSMakeRange(self.inputCalcs.length-1, 1) withString:@"*"];
+            self.input.text = self.inputCalcs;
+        }
+        // append if not empty string or same operand already entered
+        else if([self.inputCalcs isEqualToString: @""] == NO
+                && [self.inputCalcs hasSuffix:@"*"] == NO){
+            [self.inputCalcs appendString:@"*"];
+            self.input.text = self.inputCalcs;
+        }
     }
     else if(button.tag == 8){
         [self.inputCalcs appendString:@"4"];
@@ -98,8 +171,11 @@
         self.input.text = self.inputCalcs;
     }
     else if(button.tag == 11){
-        [self.inputCalcs appendString:@"-"];
-        self.input.text = self.inputCalcs;
+        // only allow typing if there arent 2 negative signs already
+        if([self.inputCalcs hasSuffix:@"--"] == NO){
+            [self.inputCalcs appendString:@"-"];
+            self.input.text = self.inputCalcs;
+        }
     }
     else if(button.tag == 12){
         [self.inputCalcs appendString:@"1"];
@@ -114,22 +190,54 @@
         self.input.text = self.inputCalcs;
     }
     else if(button.tag == 15){
-        [self.inputCalcs appendString:@"+"];
-        self.input.text = self.inputCalcs;
+        // replace existing operand with new pressed operand
+        if ([self.inputCalcs hasSuffix:@"/"]
+            || [self.inputCalcs hasSuffix:@"*"]
+            || [self.inputCalcs hasSuffix:@"-"]){
+            
+            [self.inputCalcs replaceCharactersInRange:NSMakeRange(self.inputCalcs.length-1, 1) withString:@"+"];
+            self.input.text = self.inputCalcs;
+        }
+        // append if not empty string or same operand already entered
+        else if([self.inputCalcs isEqualToString: @""] == NO
+                && [self.inputCalcs hasSuffix:@"+"] == NO){
+            [self.inputCalcs appendString:@"+"];
+            self.input.text = self.inputCalcs;
+        }
     }
     else if(button.tag == 16){
         [self.inputCalcs appendString:@"0"];
         self.input.text = self.inputCalcs;
     }
     else if(button.tag == 17){
-        [self.inputCalcs appendString:@"."];
-        self.input.text = self.inputCalcs;
+        // only allow entering if arg already entered and no operand before
+        if([self.inputCalcs isEqualToString: @""] == NO
+           && [self.inputCalcs hasSuffix:@"*"] == NO
+           && [self.inputCalcs hasSuffix:@"/"] == NO
+           && [self.inputCalcs hasSuffix:@"+"] == NO
+           && [self.inputCalcs hasSuffix:@"-"] == NO){
+            [self.inputCalcs appendString:@"."];
+            self.input.text = self.inputCalcs;
+        }
     }
     else if(button.tag == 18){
-        return @"←";
+        if(self.inputCalcs.length > 0){
+            [self.inputCalcs deleteCharactersInRange:NSMakeRange(self.inputCalcs.length-1, 1)];
+            self.input.text = self.inputCalcs;
+        }
     }
     else{
-        return @"=";
+        // only evaluate if not ending in operand
+        if([self.inputCalcs hasSuffix:@"*"] == NO
+           && [self.inputCalcs hasSuffix:@"-"] == NO
+           && [self.inputCalcs hasSuffix:@"/"] == NO
+           && [self.inputCalcs hasSuffix:@"+"] == NO){
+            NSExpression *expression = [NSExpression expressionWithFormat:self.inputCalcs];
+            NSNumber *result = [expression expressionValueWithObject:nil context:nil];
+            self.output.text = [result stringValue];
+            
+            self.done = YES;
+        }
     }
 
 }
@@ -141,10 +249,10 @@
         return @"C";
     }
     else if(tag == 1){
-        return @"+/-";
+        return @"(";
     }
     else if(tag == 2){
-        return @"%";
+        return @")";
     }
     else if(tag == 3){
         return @"÷";
