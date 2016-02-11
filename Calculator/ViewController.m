@@ -28,18 +28,21 @@
     
     // create buttons
     int tag = 0;    // tag #
-    NSInteger size = self.view.frame.size.width / 4;    // height and width of each button
+    NSInteger size = self.view.frame.size.width / 4.0;    // height and width of each button
     NSInteger topMargin = self.view.frame.size.height - (rows * size);   // space to top of container
     NSInteger buttonX;  // x location of button
     NSInteger buttonY;  // y location of button
     
     for(int y = 0; y < rows; y++){
         for(int x = 0; x < columns; x++){
+                
+            buttonX = x * (size + 2);
+            buttonY = y * (size + 2) + topMargin;
             
-            buttonX = x * size;
-            buttonY = (y * size) + topMargin;
+            buttons[x][y] = [UIButton buttonWithType:UIButtonTypeCustom];
+            buttons[x][y].backgroundColor = [UIColor colorWithRed:161/255.0 green:242/255.0 blue:29/255.0 alpha:1.0];
+            buttons[x][y].titleLabel.font = [UIFont systemFontOfSize:30.0];
             
-            buttons[x][y] = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             buttons[x][y].frame = CGRectMake(buttonX, buttonY, size, size);
             [buttons[x][y] addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [buttons[x][y] setTag:tag];
