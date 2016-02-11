@@ -26,5 +26,9 @@
 // keep track if equals was just pressed
 @property BOOL done;
 
+// height constraints for uitextfields
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *outputHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *inputHeight;
+
 @end
 

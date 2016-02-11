@@ -18,39 +18,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="FDU-dl-CBO">
-                                <rect key="frame" x="0.0" y="60" width="600" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="EZw-W4-ZQn"/>
-                                </constraints>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JaI-Ol-dCP">
-                                <rect key="frame" x="0.0" y="20" width="600" height="40"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="20" y="20" width="560" height="24"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="s9k-ex-6T1"/>
+                                    <constraint firstAttribute="height" constant="24" id="Ws1-4s-c8S"/>
                                 </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.63137254899999995" green="0.94901960780000005" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="560" placeholderIntrinsicHeight="60" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="FDU-dl-CBO">
+                                <rect key="frame" x="20" y="46" width="560" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="IRf-vK-PaU"/>
+                                </constraints>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="FDU-dl-CBO" firstAttribute="top" secondItem="JaI-Ol-dCP" secondAttribute="bottom" id="Dm9-Ys-9Tv"/>
-                            <constraint firstItem="JaI-Ol-dCP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="G7Q-vG-nqS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JaI-Ol-dCP" secondAttribute="trailing" constant="-20" id="PuQ-JY-E3C"/>
+                            <constraint firstItem="FDU-dl-CBO" firstAttribute="top" secondItem="JaI-Ol-dCP" secondAttribute="bottom" constant="2" id="Dm9-Ys-9Tv"/>
+                            <constraint firstItem="JaI-Ol-dCP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="G7Q-vG-nqS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JaI-Ol-dCP" secondAttribute="trailing" id="PuQ-JY-E3C"/>
                             <constraint firstItem="JaI-Ol-dCP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="gYr-R5-JGb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="FDU-dl-CBO" secondAttribute="trailing" constant="-20" id="tPU-zn-BYK"/>
-                            <constraint firstItem="FDU-dl-CBO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="vTz-Nf-Nkl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FDU-dl-CBO" secondAttribute="trailing" id="tPU-zn-BYK"/>
+                            <constraint firstItem="FDU-dl-CBO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="vTz-Nf-Nkl"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="input" destination="JaI-Ol-dCP" id="eQh-AK-HPO"/>
+                        <outlet property="inputHeight" destination="Ws1-4s-c8S" id="jyH-qM-QrE"/>
                         <outlet property="output" destination="FDU-dl-CBO" id="1er-sG-oZm"/>
+                        <outlet property="outputHeight" destination="IRf-vK-PaU" id="5Z4-WX-PA4"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="Tc2-Ge-xVT"/>
                     </connections>
                 </viewController>
